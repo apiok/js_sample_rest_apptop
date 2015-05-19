@@ -13,8 +13,8 @@
     function ok_api_success(arg) {
 //        alert(arg);
     }
-    function ok_api_error(arg) {
-//        alert(arg);
+    function ok_api_error(error) {
+        alert('ERROR #' + (error.error_code || 0) + ": " + (error.error_msg || "?"));
     }
 
     function updateTop() {
@@ -53,7 +53,7 @@
                     }
                 }
             } else {
-                alert('ERROR: ' + error);
+                ok_api_error(error);
             }
             $('#appTop').html(html.join(''));
         });
