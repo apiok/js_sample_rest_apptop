@@ -33,7 +33,7 @@
                         continue;
                     }
                     var title = (top.gender == 'm' ? 'Мужчины' : 'Женщины') + ' ' + top.age;
-                    html.push('<h2>', title, '</h2>');
+                    html.push('<br/><h2>', title, '</h2>');
 
                     var appsToShow = Math.min(top.apps.length, topLimit);
                     for (var j = 0; j < appsToShow; j++) {
@@ -43,7 +43,7 @@
                             html.push('<a target="_blank" href="', app.url, '">');
                         }
                         if (app.icon) {
-                            html.push('<img src="', app.icon, '"/>');
+                            html.push('<img width="18" height="18" src="', app.icon, '"/>');
                         }
                         if (app.url) {
                             html.push('</a>');
@@ -69,7 +69,7 @@
     });
 </script>
 
-<div id="appsTop"></div>
+<div style="width:400px;height:750px;overflow:auto;margin:0 auto;" id="appsTop"></div>
 
 </body>
 </html>
