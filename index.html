@@ -24,7 +24,7 @@
     function updateTop() {
         FAPI.Client.call({"method": "apps.getTop"}, function (status, data, error) {
             var html = [];
-            html.push('<h1>Топ ', topLimit, ' приложений по демографическим группам</h1>');
+            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1>');
             if (status == 'ok') {
                 tops = data;
                 for (var i = 0; i < data.length; i++) {
@@ -32,7 +32,7 @@
                     if (!top.age || (top.age == "[-1,-1]") || !top.gender) {
                         continue;
                     }
-                    var title = (top.gender == 'm' ? 'Мужчины' : 'Женщины') + ' ' + top.age;
+                    var title = (top.gender == 'm' ? 'Мужчины' : 'Женщины') + ' ' + top.age.replace(',', '-');
                     html.push('<br/><h2>', title, '</h2>');
 
                     var appsToShow = Math.min(top.apps.length, topLimit);
@@ -69,7 +69,7 @@
     });
 </script>
 
-<div style="width:400px;height:750px;overflow:auto;margin:0 auto;" id="appsTop"></div>
+<div style="width:500px;height:750px;overflow:auto;margin:0 auto;" id="appsTop"></div>
 
 </body>
 </html>
