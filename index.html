@@ -10,9 +10,6 @@
     var tops = [];
     var topLimit = 20;
 
-    function ok_api_success(arg) {
-//        alert(arg);
-    }
     function ok_api_error(error) {
         if (error) {
             if (error.error_code || error.error_msg) {
@@ -25,10 +22,6 @@
     }
 
     function updateTop() {
-        var rParams = FAPI.Util.getRequestParameters();
-        FAPI.init(rParams["api_server"], rParams["apiconnection"], ok_api_success, ok_api_error);
-        FAPI.Client.initialize(rParams);
-
         FAPI.Client.call({"method": "apps.getTop"}, function (status, data, error) {
             var html = [];
             html.push('<h1>Топ ', topLimit, ' приложений по демографическим группам</h1>');
@@ -62,12 +55,17 @@
             } else {
                 ok_api_error(error);
             }
-            $('#appTop').html(html.join(''));
+            $('#appsTop').html(html.join(''));
         });
     }
 
     $(document).ready(function () {
-        updateTop();
+        var rParams = FAPI.Util.getRequestParameters();
+        FAPI.init(rParams["api_server"], rParams["apiconnection"],
+                function () {
+                    updateTop();
+                },
+                ok_api_error);
     });
 </script>
 
