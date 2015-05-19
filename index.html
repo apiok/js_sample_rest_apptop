@@ -1,0 +1,70 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Демографический топ</title>
+</head>
+<body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="https://api.odnoklassniki.ru/js/fapi5.js" defer="defer"></script>
+<script type="text/javascript">
+    var tops = [];
+    var topLimit = 20;
+
+    function ok_api_success(arg) {
+//        alert(arg);
+    }
+    function ok_api_error(arg) {
+//        alert(arg);
+    }
+
+    function updateTop() {
+        var rParams = FAPI.Util.getRequestParameters();
+        FAPI.init(rParams["api_server"], rParams["apiconnection"], ok_api_success, ok_api_error);
+        FAPI.Client.initialize(rParams);
+
+        FAPI.Client.call({"method": "apps.getTop"}, function (status, data, error) {
+            var html = [];
+            html.push('<h1>Топ ', topLimit, ' приложений по демографическим группам</h1>');
+            if (status == 'ok') {
+                tops = data;
+                for (var i = 0; i < data.length; i++) {
+                    var top = data[i];
+                    if (!top.age || (top.age == "[-1,-1]") || !top.gender) {
+                        continue;
+                    }
+                    var title = (top.gender == 'm' ? 'Мужчины' : 'Женщины') + ' ' + top.age;
+                    html.push('<h2>', title, '</h2>');
+
+                    var appsToShow = Math.min(top.apps.length, topLimit);
+                    for (var j = 0; j < appsToShow; j++) {
+                        var app = top.apps[j];
+                        html.push('<div>', j + 1, '. ');
+                        if (app.url) {
+                            html.push('<a target="_blank" href="', app.url, '">');
+                        }
+                        if (app.icon) {
+                            html.push('<img src="', app.icon, '"/>');
+                        }
+                        if (app.url) {
+                            html.push('</a>');
+                        }
+                        html.push('&nbsp;<span>', app.name, '</span>');
+                        html.push('</div>');
+                    }
+                }
+            } else {
+                alert('ERROR: ' + error);
+            }
+            $('#appTop').html(html.join(''));
+        });
+    }
+
+    $(document).ready(function () {
+        updateTop();
+    });
+</script>
+
+<div id="appsTop"></div>
+
+</body>
+</html>
