@@ -9,6 +9,8 @@ body {font-size: 12px;}
 div#appsTop {
     width: 960px; height:100%; overflow:auto; margin:0 auto; font-family: Helvetica, Arial, sans-serif; font-size: 1.0em; display:table;
 }
+div.female, div.male {display: inline-block;}
+
 div.top-block {
     width: 470px; 
     margin: 0 0 10px 0; 
@@ -45,7 +47,7 @@ span.empty-icon {
     function updateTop() {
         FAPI.Client.call({"method": "apps.getTop"}, function (status, data, error) {
             var html = [];
-            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1><div>');
+            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1><div class="female">');
             if (status == 'ok') {
                 var female = true;
                 for (var i = 0; i < data.length; i++) {
@@ -56,7 +58,7 @@ span.empty-icon {
                     var title = (top.gender == 'm' ? 'Мужчины' : 'Женщины') + ' ' + top.age.replace(',', '-');
                     if (female && top.gender == 'm') {
                         female = false;
-                        html.push('</div><div>');
+                        html.push('</div><div class="male">');
                     }
                     html.push('<div class="top-block"><h2>', title, '</h2>');
 
