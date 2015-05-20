@@ -37,10 +37,6 @@ span.empty-icon {
 <script type="text/javascript">
     var topLimit = 20;
 
-    function changeTop () {
-        var topLimit = document.newtop.changetop.value;
-        alert(name);
-    }
     function ok_api_error(error) {
         if (error) {
             if (error.error_code || error.error_msg) {
@@ -56,7 +52,7 @@ span.empty-icon {
     function updateTop() {
         FAPI.Client.call({"method": "apps.getTop"}, function (status, data, error) {
             var html = [];
-            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1><form action="" method="post" name="newtop"><input type="text" name="changetop" value="100" id="changetop"><input type="button" onclick="changeTop(); value="Показать топ"></form><div class="female">');
+            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1><div class="female">');
             if (status == 'ok') {
                 var female = true;
                 for (var i = 0; i < data.length; i++) {
