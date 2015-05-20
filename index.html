@@ -9,9 +9,12 @@ body {font-size: 12px;}
 div#appsTop {
     width: 80%; min-width:500px; height:100%; overflow:auto; margin:0 auto; font-family: Helvetica, Arial, sans-serif; font-size: 1.0em;
 }
-div.top-block {}
-div.top-block:nth-child(odd) {background: #fff;}
-div.top-block:nth-child(even) {background: #e5e5e5;}
+div.top-block {width: 440px; float: left;}
+div.top-block:nth-child(8), div.top-block:nth-child(9), div.top-block:nth-child(10), div.top-block:nth-child(11), div.top-block:nth-child(12), div.top-block:nth-child(13), div.top-block:nth-child(14), div.top-block:nth-child(15), div.top-block:nth-child(16) {
+    float: right; margin-left: 20px;    
+}
+div.top-block div:nth-child(odd) {background: #fff;}
+div.top-block div:nth-child(even) {background: #feebd1;}
 h1 {font-size: 1.8em; margin: 20px 0 10px;}
 h2 {font-size: 1.2em;  margin: 10px 0 8px;}
 span.number {
