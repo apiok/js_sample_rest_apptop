@@ -79,8 +79,9 @@ span.empty-icon {
                         html.push('&nbsp;<span>', app.name, '</span>');
                         html.push('</div>');
                     }
-                 html.push('</div></div>');
+                    html.push('</div>');
                 }
+                html.push('</div>');
             } else {
                 ok_api_error(error);
             }
