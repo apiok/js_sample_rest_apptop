@@ -7,7 +7,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="https://api.odnoklassniki.ru/js/fapi5.js" defer="defer"></script>
 <script type="text/javascript">
-    var tops = [];
     var topLimit = 20;
 
     function ok_api_error(error) {
@@ -17,8 +16,9 @@
             } else {
                 alert('ERROR ' + error);
             }
+        } else {
+            alert('UNKNOWN ERROR OCCURRED');
         }
-        alert('ERROR');
     }
 
     function updateTop() {
@@ -26,7 +26,6 @@
             var html = [];
             html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1>');
             if (status == 'ok') {
-                tops = data;
                 for (var i = 0; i < data.length; i++) {
                     var top = data[i];
                     if (!top.age || (top.age == "[-1,-1]") || !top.gender) {
@@ -44,6 +43,8 @@
                         }
                         if (app.icon) {
                             html.push('<img width="18" height="18" src="', app.icon, '"/>');
+                        } else {
+                            html.push('&nbsp;');
                         }
                         if (app.url) {
                             html.push('</a>');
@@ -69,7 +70,7 @@
     });
 </script>
 
-<div style="width:500px;height:750px;overflow:auto;margin:0 auto;" id="appsTop"></div>
+<div style="width:500px;height:100%;overflow:auto;margin:0 auto;" id="appsTop"></div>
 
 </body>
 </html>
