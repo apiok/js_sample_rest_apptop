@@ -20,7 +20,6 @@ div.top-block div:nth-child(even) {background: #fef6ef;}
 h1 {font-size: 1.8em; margin: 20px 0 10px;}
 h2 {font-size: 1.2em;  margin: 10px 0 8px;}
 div.top-block div, div.top-block div a {height: 24px;}
-div.top-block div a img {margin-top: 1px;}
 div.top-block div span {height: 24px; line-height: 24px; vertical-align: center;}
 span.number {
     width: 24px; display: inline-block; margin-left: 5px;
@@ -73,7 +72,7 @@ span.empty-icon {
                             html.push('<a target="_blank" href="', app.url, '">');
                         }
                         if (app.icon) {
-                            html.push('<img width="18" height="18" align="top" src="', app.icon, '"/>');
+                            html.push('<img width="18" height="18" align="top" vspace="2" src="', app.icon, '"/>');
                         } else {
                             html.push('<span class="empty-icon">&nbsp;</span>');
                         }
