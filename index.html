@@ -20,8 +20,8 @@ div.top-block div:nth-child(even) {background: #fef6ef;}
 
 h1 {font-size: 1.8em; margin: 20px 0 10px;}
 h2 {font-size: 1.31em;  margin: 10px 0 8px;}
-div.female h2 {color: #5d1633;}
-div.male h2 {color: #003a5b;}
+div.female h2 {color: #8c214d;}
+div.male h2 {color: #004e7a;}
 
 div.top-block div, div.top-block div a {height: 24px;}
 div.top-block div span {height: 24px; line-height: 24px; vertical-align: center;}
@@ -38,7 +38,7 @@ span.empty-icon {
     var topLimit = 20;
 
     function changeTop () {
-        var name = document.newtop.changetop.value;
+        var topLimit = document.newtop.changetop.value;
         alert(name);
     }
     function ok_api_error(error) {
@@ -56,7 +56,7 @@ span.empty-icon {
     function updateTop() {
         FAPI.Client.call({"method": "apps.getTop"}, function (status, data, error) {
             var html = [];
-            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1><form action="" method="post" name="newtop"><input type="text" name="changetop" value="100" id="changetop"><input type="button" onclick="changeTop();"></form><div class="female">');
+            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1><form action="" method="post" name="newtop"><input type="text" name="changetop" value="100" id="changetop"><input type="button" onclick="changeTop(); value="Показать топ"></form><div class="female">');
             if (status == 'ok') {
                 var female = true;
                 for (var i = 0; i < data.length; i++) {
