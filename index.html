@@ -12,14 +12,8 @@ div#appsTop {
 div.top-block {
     width: 470px; 
     margin: 0 0 10px 0; 
-    display: table-cell;
 }
-div.top-block:nth-child(1), div.top-block:nth-child(2), div.top-block:nth-child(3), div.top-block:nth-child(4), div.top-block:nth-child(5), div.top-block:nth-child(6), div.top-block:nth-child(7), div.top-block:nth-child(8) {
-    text-align: left;    
-}
-div.top-block:nth-child(9), div.top-block:nth-child(10), div.top-block:nth-child(11), div.top-block:nth-child(12), div.top-block:nth-child(13), div.top-block:nth-child(14), div.top-block:nth-child(15), div.top-block:nth-child(16) {
-    text-align: right;    
-}
+
 div.top-block div:nth-child(odd) {background: #fff;}
 div.top-block div:nth-child(even) {background: #feebd1;}
 h1 {font-size: 1.8em; margin: 20px 0 10px;}
@@ -51,17 +45,23 @@ span.empty-icon {
     function updateTop() {
         FAPI.Client.call({"method": "apps.getTop"}, function (status, data, error) {
             var html = [];
-            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1>');
+            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1><div>');
             if (status == 'ok') {
+                var female = true;
                 for (var i = 0; i < data.length; i++) {
                     var top = data[i];
                     if (!top.age || (top.age == "[-1,-1]") || !top.gender) {
                         continue;
                     }
                     var title = (top.gender == 'm' ? 'Мужчины' : 'Женщины') + ' ' + top.age.replace(',', '-');
+                    if (female && top.gender == 'm') {
+                        female = false;
+                        html.push('</div><div>');
+                    }
                     html.push('<div class="top-block"><h2>', title, '</h2>');
 
                     var appsToShow = Math.min(top.apps.length, topLimit);
+                    
                     for (var j = 0; j < appsToShow; j++) {
                         var app = top.apps[j];
                         html.push('<div><span class="number">', j + 1, '.</span> ');
@@ -79,7 +79,7 @@ span.empty-icon {
                         html.push('&nbsp;<span>', app.name, '</span>');
                         html.push('</div>');
                     }
-                 html.push('</div>');
+                 html.push('</div></div>');
                 }
             } else {
                 ok_api_error(error);
