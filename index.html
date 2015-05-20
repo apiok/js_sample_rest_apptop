@@ -9,7 +9,7 @@ body {font-size: 12px;}
 div#appsTop {
     width: 80%; min-width:500px; height:100%; overflow:auto; margin:0 auto; font-family: Helvetica, Arial, sans-serif; font-size: 1.0em;
 }
-div.top-block {width: 440px; float: left;}
+div.top-block {width: 440px;}
 div.top-block:nth-child(8), div.top-block:nth-child(9), div.top-block:nth-child(10), div.top-block:nth-child(11), div.top-block:nth-child(12), div.top-block:nth-child(13), div.top-block:nth-child(14), div.top-block:nth-child(15), div.top-block:nth-child(16) {
     float: right; margin-left: 20px;    
 }
@@ -52,7 +52,7 @@ span.empty-icon {
                         continue;
                     }
                     var title = (top.gender == 'm' ? 'Мужчины' : 'Женщины') + ' ' + top.age.replace(',', '-');
-                    html.push('<br/><h2>', title, '</h2><div class="top-block">');
+                    html.push('<div class="top-block"><h2>', title, '</h2>');
 
                     var appsToShow = Math.min(top.apps.length, topLimit);
                     for (var j = 0; j < appsToShow; j++) {
