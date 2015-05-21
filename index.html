@@ -104,9 +104,20 @@ span.empty-icon {
                     updateTop();
                 },
                 ok_api_error);
+        $('#limit').on('change', function () {
+            topLimit = $(this).val();
+            updateTop();
+        });
     });
 </script>
 
+<div style="float:right;">
+    <select id="limit">
+        <option selected="selected">20</option>
+        <option>50</option>
+        <option>100</option>
+    </select>
+</div>
 <div id="appsTop"></div>
 
 </body>
