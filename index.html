@@ -51,13 +51,43 @@ span.empty-icon {
     }
 
     function updateTop() {
+        function drawSingleTop(title, top, html) {
+            html.push('<div class="top-block"><h2>', title, '</h2>');
+
+            var appsToShow = Math.min(top.apps.length, topLimit);
+
+            for (var j = 0; j < appsToShow; j++) {
+                var app = top.apps[j];
+                html.push('<div><span class="number">', j + 1, '.</span> ');
+                if (app.url) {
+                    html.push('<a target="_blank" href="', app.url, '">');
+                }
+                if (app.icon) {
+                    html.push('<img width="18" height="18" align="top" src="', app.icon, '"/>');
+                } else {
+                    html.push('<span class="empty-icon">&nbsp;</span>');
+                }
+                if (app.url) {
+                    html.push('</a>');
+                }
+                html.push('&nbsp;<span>', app.name, '</span>');
+                html.push('</div>');
+            }
+            html.push('</div>');
+        }
+
         FAPI.Client.call({"method": "apps.getTop"}, function (status, data, error) {
             var html = [];
-            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1><div class="female">');
+            html.push('<h1>Топ ', topLimit, ' по демографическим группам</h1>');
             if (status == 'ok') {
                 var female = true;
                 for (var i = 0; i < data.length; i++) {
                     var top = data[i];
+                    if (top.type == 'general') {
+                        drawSingleTop('Средняя аудитория', top, html);
+                        html.push('<div class="female">');
+                        continue;
+                    }
                     if (!top.age || (top.age == "[-1,-1]") || !top.gender) {
                         continue;
                     }
@@ -66,28 +96,7 @@ span.empty-icon {
                         female = false;
                         html.push('</div><div class="male">');
                     }
-                    html.push('<div class="top-block"><h2>', title, '</h2>');
-
-                    var appsToShow = Math.min(top.apps.length, topLimit);
-                    
-                    for (var j = 0; j < appsToShow; j++) {
-                        var app = top.apps[j];
-                        html.push('<div><span class="number">', j + 1, '.</span> ');
-                        if (app.url) {
-                            html.push('<a target="_blank" href="', app.url, '">');
-                        }
-                        if (app.icon) {
-                            html.push('<img width="18" height="18" align="top" src="', app.icon, '"/>');
-                        } else {
-                            html.push('<span class="empty-icon">&nbsp;</span>');
-                        }
-                        if (app.url) {
-                            html.push('</a>');
-                        }
-                        html.push('&nbsp;<span>', app.name, '</span>');
-                        html.push('</div>');
-                    }
-                    html.push('</div>');
+                    drawSingleTop(title, top, html);
                 }
                 html.push('</div>');
             } else {
