@@ -91,7 +91,7 @@ span.empty-icon {
                     if (!top.age || (top.age == "[-1,-1]") || !top.gender) {
                         continue;
                     }
-                    var title = "[ "+(top.type=='web'?'Веб':'Моб')+" ] "+(top.gender == 'm' ? 'Мужчины' : 'Женщины') + ' ' + top.age.replace(',', '-');
+                    var title = "["+(top.type=='web'?'Веб':'Моб')+"] "+(top.gender == 'm' ? 'Мужчины' : 'Женщины') + ' ' + top.age.replace(',', '-');
                     if (female && top.gender == 'm') {
                         female = false;
                         html.push('</div><div class="male">');
